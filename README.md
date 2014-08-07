@@ -11,6 +11,6 @@ Usage:
 
 	> stockprice.sh $symbol $days_to_read [-q]
 
-$symbol (required) is the stock ticker symbol of the company you want to track		
-$days_to_read (required) is the number of days of data you want to read out of the file		
--q (currently, must be the third option) will run in "quiet" mode, which returns only the closing stock prices for each day, omitting date and headers.		
+`$symbol` (required) is the stock ticker symbol of the company you want to track		
+`$days_to_read` (required) is the number of days of data you want to read out of the file		
+`-q` (currently, must be the third option) will run in "quiet" mode, which returns only the closing stock prices for each day, omitting date and headers.		
