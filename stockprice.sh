@@ -18,9 +18,19 @@ if [[ $days_to_read = *[0-9]* && $days_to_read =~ $positive_integer_regexp ]]; t
 
 	case $http_response in
 	[2,3]*)	
+
+		# CURLs the URL ($csv_url), appending the Stock Symbol ($symbol), and writes to the temp file
 		curl -s $csv_url$symbol > $tempfile
+		
 		let lines_to_read="$days_to_read + 1"
-		head -$lines_to_read $tempfile | sed '1d' | cut -d, -f5 
+		
+		if ( $3 = "-q") then
+			# Runs in "quiet" mode. 
+			head -$lines_to_read $tempfile | sed '1d' | cut -d, -f5 
+		else	
+			head -$lines_to_read $tempfile | cut -d, -f1,5  | column -s, -t
+		fi
+		
 		exit 0
 	;;
 	[4,5]*)	
