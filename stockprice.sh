@@ -24,8 +24,9 @@ if [[ $days_to_read = *[0-9]* && $days_to_read =~ $positive_integer_regexp ]]; t
 		
 		let lines_to_read="$days_to_read + 1"
 		
-		if ( $3 = "-q") then
-			# Runs in "quiet" mode. 
+		if [ $3='-q' ] 
+		then
+			# Runs in "quiet" mode.
 			head -$lines_to_read $tempfile | sed '1d' | cut -d, -f5 
 		else	
 			head -$lines_to_read $tempfile | cut -d, -f1,5  | column -s, -t
