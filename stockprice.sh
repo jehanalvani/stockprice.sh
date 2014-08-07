@@ -1,12 +1,36 @@
 #! /bin/bash
 
-SYMBOL=$1
-INPUT_COUNT=$2
-TEMPFILE=$TMPDIR"$SYMBOL.csv"
+symbol=$1
+days_to_read=$2
+tempfile=$TMPDIR"$symbol.csv"
+csv_url="http://ichart.yahoo.com/table.csv?s=" # Details: https://code.google.com/p/yahoo-finance-managed/wiki/csvHistQuotesDownload
 
+# Validates $days_to_read 
 
-curl -s http://real-chart.finance.yahoo.com/table.csv?s=$SYMBOL > $TEMPFILE
+positive_integer_regexp='^[-]?[0-9]*(\.[0-9]*)?$'
+if [[ $days_to_read = *[0-9]* && $days_to_read =~ $positive_integer_regexp ]]; then
 
-let DAYSTOREAD="$INPUT_COUNT + 1"
+	# Generates HTTP response by CURLing the stock ticker symbol to verify if the symbol is valid. 
 
-head -$DAYSTOREAD $TEMPFILE | sed '1d' | tail -r | cut -d, -f5 
+	http_response=$(curl --write-out %{http_code} --silent --output /dev/null $csv_url$symbol)
+
+	# If HTTP response is 200 or 300 (valid), the script will continue
+
+	case $http_response in
+	[2,3]*)	
+		curl -s $csv_url$symbol > $tempfile
+		let lines_to_read="$days_to_read + 1"
+		head -$lines_to_read $tempfile | sed '1d' | cut -d, -f5 
+		exit 0
+	;;
+	[4,5]*)	
+		echo "HTTP Response "$http_response
+		exit 1
+	;;
+	esac
+
+else
+    echo "'$days_to_read' isn't a valid number of days to read."
+    exit 1
+fi
+
