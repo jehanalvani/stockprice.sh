@@ -96,6 +96,7 @@ case $http_response in
 ;;
 [4,5]*)	
 	echo "HTTP Response "$http_response
+	echo "Yahoo doesn't recognize this stock symbol."
 	exit 1
 ;;
 esac

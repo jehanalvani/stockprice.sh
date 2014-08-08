@@ -12,8 +12,8 @@ I use this to pipe output into `spark`, eg.
 
 Usage:
 
-	> stockprice.sh [$symbol $days_to_read [-q]]
+	> stockprice.sh [-s SYMBOL -d DAYS [-q]]
 
 `$symbol` (required) is the stock ticker symbol of the company you want to track		
 `$days_to_read` is the number of days of data you want to read out of the file. Defaults to 1. 
-`-q` (currently, must be the third option) will run in "quiet" mode, which returns only the closing stock prices for each day, omitting date and headers.		
+`-q` Will run in "quiet" mode, which returns only the closing stock prices for each day, omitting date and headers.		
