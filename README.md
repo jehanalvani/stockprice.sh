@@ -4,7 +4,11 @@ stockprice.sh
 BASH script for displaying historical daily stock prices. References the Yahoo Finance API. 
 
 
-I use this to pipe output into `spark`.
+I use this to pipe output into `spark`, eg. 
+
+	> stockprice.sh -s AAPL -d 10 -q | tail -r | spark
+	> ▅█▆▆▂▃▂▂▁▁
+	>
 
 Usage:
 
