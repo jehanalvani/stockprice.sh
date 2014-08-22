@@ -57,7 +57,7 @@ if [ "$symbol" = "" ]
 		read -p "Stock Symbol: " symbol
 fi
 
-tempfile=$TEMPDIR$symbol
+tempfile=$TMPDIR$symbol
 
 # Validates $days_to_read 
 
